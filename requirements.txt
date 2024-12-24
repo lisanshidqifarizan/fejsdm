@@ -1,0 +1,4 @@
+fastapi
+mangum
+pandas
+scikit-learn

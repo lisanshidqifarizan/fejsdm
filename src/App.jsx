@@ -1,11 +1,10 @@
-import Menganalisa from './Components/Menganalisa.jsx';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
-function App() {
-  return (
-    <div>
-      <Menganalisa />
-    </div>
-  );
-}
-
-export default App;
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
