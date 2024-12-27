@@ -8,21 +8,26 @@ function Menganalisa() {
     const [accuracy, setAccuracy] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchPredictions = async () => {
             try {
-                // Fetch predictions
-                const predictionsResponse = await axios.get(`${API_BASE_URL}/predict`);
-                setPredictions(predictionsResponse.data);
-
-                // Fetch accuracy
-                const accuracyResponse = await axios.get(`${API_BASE_URL}/accuracy`);
-                setAccuracy(accuracyResponse.data.accuracy);
+                const response = await axios.get(`${API_BASE_URL}/predict`);
+                setPredictions(response.data);
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetching predictions:", error);
             }
         };
 
-        fetchData();
+        const fetchAccuracy = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/accuracy`);
+                setAccuracy(response.data.accuracy);
+            } catch (error) {
+                console.error("Error fetching accuracy:", error);
+            }
+        };
+
+        fetchPredictions();
+        fetchAccuracy();
     }, []);
 
     return (
