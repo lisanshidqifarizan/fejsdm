@@ -1,33 +1,28 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "https://tugas-data-mining.vercel.app/api";
+const API_BASE_URL = "https://bepydm-production.up.railway.app/";
 
 function Menganalisa() {
     const [predictions, setPredictions] = useState([]);
     const [accuracy, setAccuracy] = useState(null);
 
     useEffect(() => {
-        const fetchPredictions = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URL}/predict`);
-                setPredictions(response.data);
+                // Fetch predictions
+                const predictionsResponse = await axios.get(`${API_BASE_URL}/predict`);
+                setPredictions(predictionsResponse.data);
+
+                // Fetch accuracy
+                const accuracyResponse = await axios.get(`${API_BASE_URL}/accuracy`);
+                setAccuracy(accuracyResponse.data.accuracy);
             } catch (error) {
-                console.error("Error fetching predictions:", error);
+                console.error("Error fetching data:", error);
             }
         };
 
-        const fetchAccuracy = async () => {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/accuracy`);
-                setAccuracy(response.data.accuracy);
-            } catch (error) {
-                console.error("Error fetching accuracy:", error);
-            }
-        };
-
-        fetchPredictions();
-        fetchAccuracy();
+        fetchData();
     }, []);
 
     return (
