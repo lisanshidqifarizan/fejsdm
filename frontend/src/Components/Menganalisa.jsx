@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "https://your-vercel-domain.vercel.app/api";
+const API_BASE_URL = "https://tugas-data-mining.vercel.app/api";
 
 function Menganalisa() {
     const [predictions, setPredictions] = useState([]);
     const [accuracy, setAccuracy] = useState(null);
 
     useEffect(() => {
-        // Fetch predictions
-        axios
-            .get(`${API_BASE_URL}/predict`)
-            .then((response) => setPredictions(response.data))
-            .catch((error) => console.error("Error fetching predictions:", error));
+        const fetchPredictions = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/predict`);
+                setPredictions(response.data);
+            } catch (error) {
+                console.error("Error fetching predictions:", error);
+            }
+        };
 
-        // Fetch accuracy
-        axios
-            .get(`${API_BASE_URL}/accuracy`)
-            .then((response) => setAccuracy(response.data.accuracy))
-            .catch((error) => console.error("Error fetching accuracy:", error));
+        const fetchAccuracy = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/accuracy`);
+                setAccuracy(response.data.accuracy);
+            } catch (error) {
+                console.error("Error fetching accuracy:", error);
+            }
+        };
+
+        fetchPredictions();
+        fetchAccuracy();
     }, []);
 
     return (
