@@ -5,7 +5,7 @@ function Menganalisa() {
     const [predictions, setPredictions] = useState([]);
     const [accuracy, setAccuracy] = useState(0);
 
-    const API = 'http://bepydm-production.up.railway.app'
+    const API = 'https://bepydm-production.up.railway.app'
 
     useEffect(() => {
         axios.get(`${API}/predict`)
