@@ -1,9 +1,11 @@
 import Menganalisa from "./Components/Menganalisa";
 
 export default function App() {
+  const MatKul = "Data Mining"
+
   return (
     <div>
-      <Menganalisa />
+      <Menganalisa judul={MatKul} />
     </div>
   )
 }

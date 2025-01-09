@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
-function Menganalisa() {
+function Menganalisa({ judul }) {
     const [predictions, setPredictions] = useState([]);
     const [accuracy, setAccuracy] = useState(0);
 
@@ -25,10 +26,13 @@ function Menganalisa() {
 
     return (
         <div>
+            <Helmet>
+                <title>Analisis | Tugas {judul}</title>
+            </Helmet>
             <div className='p-8 bg-gradient-to-b from-[#078BFF] to-[#CFFFAF]'>
                 <p className='text-[2rem] font-bold'>KANDIDAT UNIVERSITY TERBAIK</p>
                 <div className='py-8'>
-                    <p>Akurasi Model: {accuracy}%</p>
+                    <p>Akurasi Model: {accuracy}</p>
                     <p>
                         Sumber Dataset: <a
                             href="https://www.kaggle.com/datasets/bilalabdulmalik/top-300-asian-universities-qs-rankings-2024"
