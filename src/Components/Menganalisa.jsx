@@ -5,9 +5,10 @@ function Menganalisa() {
     const [predictions, setPredictions] = useState([]);
     const [accuracy, setAccuracy] = useState(0);
 
+    const API = 'http://bepydm-production.up.railway.app'
+
     useEffect(() => {
-        // Mengambil data dari API FastAPI
-        axios.get('http://127.0.0.1:8000/predict')
+        axios.get(`${API}/predict`)
             .then(response => {
                 // Menyimpan data prediksi ke state
                 setPredictions(response.data.predictions);
@@ -16,7 +17,7 @@ function Menganalisa() {
                 console.error('There was an error fetching the data!', error);
             });
 
-        axios.get('http://127.0.0.1:8000/accuracy')
+        axios.get(`${API}/accuracy`)
             .then(response => {
                 setAccuracy(response.data.accuracy)
             })
@@ -32,6 +33,7 @@ function Menganalisa() {
                         Sumber Dataset: <a
                             href="https://www.kaggle.com/datasets/bilalabdulmalik/top-300-asian-universities-qs-rankings-2024"
                             className="bg-blue-500 text-white underline rounded px-2"
+                            target='_blank noopener'
                         >
                             kaggle.com <span class="material-symbols-outlined">
                                 open_in_new
@@ -41,20 +43,20 @@ function Menganalisa() {
                 </div>
             </div>
             <div className='flex w-full p-4 bg-gray-200 justify-center'>
-                <div className=' items-center'>
+                <div className=' items-center border-2 border-black'>
                     <thead>
                         <tr>
-                            <th className='border-t-2 border-x-2 border-black'>University Name</th>
-                            <th className='border-t-2 border-black px-4'>Score</th>
-                            <th className='border-t-2 border-x-2 border-black'>Succeed</th>
+                            <th className='border-b-2 border-r-2 border-black'>University Name</th>
+                            <th className='border-b-2 border-r-2 border-black px-4'>Score</th>
+                            <th className='border-b-2 border-black'>Succeed</th>
                         </tr>
                     </thead>
                     <tbody>
                         {predictions.map((prediction, index) => (
                             <tr key={index}>
-                                <td className='border-t-2 border-x-2 border-black px-4'>{prediction['University Name']}</td>
-                                <td className='border-t-2 border-black text-center'>{prediction['Overall Score']}</td>
-                                <td className='border-t-2 border-x-2 border-black px-4 text-center'>{prediction['Predicted Success'] === 1 ? 'Successful' : 'Not Successful'}</td>
+                                <td className='border-b-2 border-r-2 border-black px-4'>{prediction['University Name']}</td>
+                                <td className='border-b-2 border-r-2 border-black text-center'>{prediction['Overall Score']}</td>
+                                <td className='border-b-2 border-black px-4 text-center'>{prediction['Predicted Success'] === 1 ? 'Successful' : 'Failed'}</td>
                             </tr>
                         ))}
                     </tbody>
